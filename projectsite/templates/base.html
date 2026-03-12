@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Hangarin: Task & To-Do Manager{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'CSS/style.css' %}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>To-Do App</h1>
+        <nav>
+          <a href="">Home</a>
+          <span class="profile-info">
+            <a href="" class="profile-link">
+              <span class="profile-circle"></span>
+            </a>
+            <span class="profile-username"></span>
+          </span>
+          <a href="">Logout</a>
+          <a href="">Login</a>
+          <a href="">Register</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class=""></div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 To-Do App. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

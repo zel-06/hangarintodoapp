@@ -1,8 +1,27 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<div class="home-container">
+    <div class="hero-section">
+        <h1>Hangarin</h1>
+        <p class="tagline">Master your schedule, simplify your life.</p>
+        
+        <div class="home-grid">
+            <a href="{% url 'task-add' %}" class="home-card">
+                <div class="icon">➕</div>
+                <h3>Add New Task</h3>
+                <p>Quickly capture what's on your mind.</p>
+                <span class="btn-text">Get Started →</span>
+            </a>
 
-<h1>Welcome to Hangarin</h1>
-<p>Your personal task manager.</p>
-
+            <a href="{% url 'task-list' %}" class="home-card">
+                <div class="icon">📋</div>
+                <h3>View My Tasks</h3>
+                <p>Check your schedule and mark items as complete.</p>
+                <span class="btn-text">View List →</span>
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

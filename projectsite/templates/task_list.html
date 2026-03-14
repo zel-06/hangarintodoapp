@@ -1,0 +1,38 @@
+{% extends 'base.html' %}{% load static %}
+
+{% block content %}
+<h1>Tasks</h1>
+<p>Your personal task manager.</p>
+
+
+
+<a href="{% url 'task-add' %}" class="add-task-btn">+ Add Task</a>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Status/Description</th>
+            <th scope="col">Deadline</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for object in object_list %}
+        <tr>
+            <td><strong>{{ object.title }}</strong></td>
+            <td style="max-width: 300px;">{{ object.description }}</td>
+            <td>{{ object.deadline|date:"M d, Y" }}</td>
+            <td class="priority-{{ task.priority|lower }}">{{ object.priority }}</td>
+            <td><span class="category-tag">{{ object.category }}</span></td>
+            <td>
+                <a href="task_list/{{ object.id }}">Edit</a>
+                <a href="task_list/{{ object.id }}/delete" class="text-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

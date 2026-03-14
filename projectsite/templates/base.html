@@ -2,42 +2,29 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Hangarin: Task & To-Do Manager{% endblock %}</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'CSS/style.css' %}"
-    />
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <h1>To-Do App</h1>
-        <nav>
-          <a href="">Home</a>
-          <span class="profile-info">
-            <a href="" class="profile-link">
-              <span class="profile-circle"></span>
-            </a>
-            <span class="profile-username"></span>
-          </span>
-          <a href="">Logout</a>
-          <a href="">Login</a>
-          <a href="">Register</a>
-        </nav>
-      </div>
-    </header>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
 
-    <main class="container">
-      <div class=""></div>
-    </main>
+    <div class="navbar">
+        <h2>Hangarin: Task & To-Do Manager</h2>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#">Calendar</a>
+            <a href="#">Settings</a>
+        </div>
+    </div>
 
-    <footer>
-      <div class="container">
-        <p>&copy; 2025 To-Do App. All rights reserved.</p>
-      </div>
-    </footer>
-  </body>
+        <div class="main">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
 </html>

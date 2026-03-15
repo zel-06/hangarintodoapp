@@ -9,17 +9,25 @@
         
         <div class="home-grid">
             <a href="{% url 'task-add' %}" class="home-card">
-                <div class="icon">➕</div>
+                <div class="icon">
+                    <img src="{% static 'img/addicon.png' %}" alt="Add Task Icon">
+                </div>
                 <h3>Add New Task</h3>
                 <p>Quickly capture what's on your mind.</p>
-                <span class="btn-text">Get Started →</span>
+                <span class="btn-text">
+                    Get Started <img src="{% static 'img/nextbtn.png' %}" alt="Next button">
+                </span>
             </a>
 
             <a href="{% url 'task-list' %}" class="home-card">
-                <div class="icon">📋</div>
+                <div class="icon">
+                    <img src="{% static 'img/notesicon.png' %}" alt="View Tasks Icon">
+                </div>
                 <h3>View My Tasks</h3>
                 <p>Check your schedule and mark items as complete.</p>
-                <span class="btn-text">View List →</span>
+                <span class="btn-text">
+                    View List <img src="{% static 'img/nextbtn.png' %}" alt="Next button">
+                </span>
             </a>
         </div>
     </div>

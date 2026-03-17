@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView
+from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView, DashboardView
 
 from tasktodomanager import views
 
@@ -27,4 +27,7 @@ urlpatterns = [
     #Task
     path('task_list/', TaskListView.as_view(), name='task-list'),
     path('task_list/add', TaskCreateView.as_view(), name='task-add'),
+
+    #Dashboard
+    path('Dashboard/', DashboardView.as_view(), name='dashboard'),
 ]

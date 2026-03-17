@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="header-title">Dashboard</h1>
+<div class="dashboard-row">
+    <div class="card card-warning">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-users"></i></div>
+            <div class="numbers">
+                <p class="card-category">Tasks</p>
+                <h4 class="card-title">{{ total_task }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-success">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-bar-chart"></i></div>
+            <div class="numbers">
+                <p class="card-category">Top Task Category</p>
+                <h4 class="card-title">{{ top_category_name }} ({{ top_category_total }})</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-danger">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-newspaper-o"></i></div>
+            <div class="numbers">
+                <p class="card-category">Total Task Created This Year</p>
+                <h4 class="card-title">{{ task_created_this_year }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-primary">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-check-circle"></i></div>
+            <div class="numbers">
+                <p class="card-category">Total Completed Task</p>
+                <h4 class="card-title">{{ total_accomplished }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

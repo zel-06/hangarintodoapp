@@ -629,3 +629,38 @@ tr:hover {
 .card-success { background: linear-gradient(135deg, #56ab2f, #a8e063); }
 .card-danger  { background: linear-gradient(135deg, #cb2d3e, #ef473a); }
 .card-primary { background: linear-gradient(135deg, #396afc, #2948ff); }
+
+
+
+
+
+
+/* Allow wrapping for filter row and dashboard */
+.filter-row, .dashboard-row {
+    flex-wrap: wrap;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .task-card {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filter-row select, .filter-row button {
+        width: 100%;
+    }
+
+    .header-title {
+        font-size: 28px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+}

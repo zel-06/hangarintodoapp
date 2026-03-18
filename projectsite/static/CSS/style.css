@@ -2,9 +2,12 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #63c0e3 0%, #6248c2 100%);
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;   /* allow body to grow beyond viewport */
+    overflow-x: hidden;  /* only hide horizontal scroll */
+    overflow-y: auto;    /* allow vertical scroll */
+    background-attachment: fixed;
 }
+
 
 /* Home.html */
 .home-container {

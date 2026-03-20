@@ -70,9 +70,3 @@ class Note(BaseModel):
 
     def __str__(self):
         return self.content[:50]
-    
-class CompletedTask(BaseModel):
-    title = models.CharField(max_length=255)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    accomplished = models.BooleanField(default=False)

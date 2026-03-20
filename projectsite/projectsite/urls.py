@@ -15,19 +15,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView, DashboardView
+from django.urls import path, include
+from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, SubtaskListView, NoteListView, TaskDoneView
 
 from tasktodomanager import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/", include("allauth.urls")), # allauth routes
+    
     path('', views.HomePageView.as_view(), name='home'),
 
     #Task
     path('task_list/', TaskListView.as_view(), name='task-list'),
     path('task_list/add', TaskCreateView.as_view(), name='task-add'),
+    path('task_list/<pk>', TaskUpdateView.as_view(), name='task-update'),
+    path('task_list/<pk>/delete', TaskDeleteView.as_view(), name='task-delete'),
 
-    #Dashboard
-    path('Dashboard/', DashboardView.as_view(), name='dashboard'),
+    #Subtask and Notes
+    path('task_list/<pk>/subtask', SubtaskListView.as_view(), name='subtask-list'),
+    path('task_list/<pk>/notes', NoteListView.as_view(), name='notes-list'),
+    path('task_list/<pk>/done/', TaskDoneView.as_view(), name='task-done'),
 ]

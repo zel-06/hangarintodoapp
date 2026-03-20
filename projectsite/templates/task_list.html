@@ -2,12 +2,58 @@
 
 {% block content %}
 
-<h1>Tasks</h1>
-<p>Your personal task manager.</p>
+<div class="btnback">
+<a href="{% url 'home' %}" class="btn">Back</a>
+</div>
 
 
-<a href="{% url 'task-add' %}" class="add-task-btn">+ Add Task</a>
-            
+<h1 class="task">Tasks</h1>
+<p class="subtitle">.Your personal task manager.</p>
+
+<div class="dashboard-row">
+    <div class="card card-warning">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-users"></i></div>
+            <div class="numbers">
+                <p class="card-category">Tasks</p>
+                <h4 class="card-title">{{ total_task }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-success">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-bar-chart"></i></div>
+            <div class="numbers">
+                <p class="card-category">Pending</p>
+                <h4 class="card-title">{{pending_total }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-danger">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-newspaper-o"></i></div>
+            <div class="numbers">
+                <p class="card-category">In Progress</p>
+                <h4 class="card-title">{{ in_progress_total }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-primary">
+        <div class="card-body">
+            <div class="icon-big"><i class="la la-check-circle"></i></div>
+            <div class="numbers">
+                <p class="card-category">Total Completed Task</p>
+                <h4 class="card-title">{{ total_accomplished }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+   
+
+
 <div class="col-md-12">
     <form method="get" class="filter-row">
         
@@ -42,15 +88,14 @@
     </form>
 </div>
 
-
-
-
-
 <table>
     <thead>
         <tr>
+            <th>Check Box</th>
             <th scope="col">Title</th>
-            <th scope="col">Status/Description</th>
+            <th scope="col">Subtasks/Notes</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
             <th scope="col">Deadline</th>
             <th scope="col">Priority</th>
             <th scope="col">Category</th>
@@ -60,17 +105,76 @@
     <tbody>
         {% for object in object_list %}
         <tr>
+                <td>
+                    <input type="checkbox"
+                        class="task-done-checkbox"
+                        data-task-id="{{ object.id }}"
+                        {% if object.status == "Completed" %}checked{% endif %}>
+                    </td>
             <td><strong>{{ object.title }}</strong></td>
+            <td> 
+                <div class="subtaskbtn">
+                    <a href="{% url 'subtask-list' object.id %}">Subtasks</a> 
+                    <a href="{% url 'notes-list' object.id %}">Notes</a>
+                    </div>
+                </td>
             <td style="max-width: 300px;">{{ object.description }}</td>
+            <td><strong>{{ object.status }}</strong></td>
             <td>{{ object.deadline|date:"M d, Y" }}</td>
             <td class="priority-{{ task.priority|lower }}">{{ object.priority }}</td>
             <td><span class="category-tag">{{ object.category }}</span></td>
             <td>
-                <a href="task_list/{{ object.id }}">Edit</a>
-                <a href="task_list/{{ object.id }}/delete" class="text-danger">Delete</a>
+                <div  class="del-edit-icon">
+                    <a href="{% url 'task-update' object.id %}"><img src="{% static 'img/editbtn.png' %}" alt="Edit Button"></a>
+                    <a href="{% url 'task-delete' object.id %}" class="text-danger"><img src="{% static 'img/deletebtn.png' %}" alt=""></a>
+                </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<div class="pagination">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+  {% endif %}
+
+  <span class="page-info">
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".task-done-checkbox").forEach(function(checkbox) {
+    checkbox.addEventListener("change", function() {
+      const taskId = this.dataset.taskId;
+      const isChecked = this.checked;
+
+      fetch(`/tasks/${taskId}/done/`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status: isChecked ? "Completed" : "Pending" })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Update the Status column live
+        const row = this.closest("tr");
+        row.querySelector("td:nth-child(4)").innerText = data.status;
+      })
+      .catch(error => console.error("Error:", error));
+    });
+  });
+});
+</script>
+
+
+
 {% endblock %}

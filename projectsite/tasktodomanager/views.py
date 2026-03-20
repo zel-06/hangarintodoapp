@@ -1,24 +1,31 @@
 from django.shortcuts import render
 
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
-from tasktodomanager.models import Category, Task, CompletedTask, Priority
-from tasktodomanager.forms import TaskForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from tasktodomanager.models import Category, Task, Priority, SubTask, Note
+from tasktodomanager.forms import TaskForm, TaskUpdateForm
 from django.urls import reverse_lazy
 from django.db.models import Q, Count
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
+from django.views import View
+from django.http import JsonResponse
+import json
 
 
-class HomePageView(ListView):
+class HomePageView(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'home'
     template_name = "home.html"
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
 class TaskListView(ListView):
     model = Task
     context_object_name = 'task'
     template_name = 'task_list.html'
-    paginate_by = 4
+    paginate_by = 5
     
     def get_queryset(self):
         qs = Task.objects.select_related("category", "priority")
@@ -34,11 +41,19 @@ class TaskListView(ListView):
             qs = qs.filter(priority_id=priority_id)
 
         return qs.order_by("category__name")
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context["categories"] = Category.objects.all()
         context["priorities"] = Priority.objects.all()  # assuming you have a Priority model
+
+        context["total_task"] = Task.objects.exclude(status="Completed").count()
+
+        context["total_accomplished"] = Task.objects.filter(status="Completed").count()
+        context["pending_total"] = Task.objects.filter(status="Pending").count()
+        context["in_progress_total"] = Task.objects.filter(status="In Progress").count()
+
         return context
 
 class TaskCreateView(CreateView):
@@ -47,34 +62,52 @@ class TaskCreateView(CreateView):
     template_name = 'task_form.html'
     success_url = reverse_lazy('task-list')
 
-class DashboardView(ListView):
+class TaskUpdateView(UpdateView):
     model = Task
-    template_name = 'dashboard.html'
+    form_class = TaskUpdateForm
+    template_name = 'task_form.html'
+    success_url = reverse_lazy('task-list')
+
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = 'task_del.html'
+    success_url = reverse_lazy('task-list')
+    
+class SubtaskListView(ListView):
+    model = SubTask
+    template_name = 'subtask_list.html'
+    context_object_name = 'subtasks'
+
+    def get_queryset(self):
+        # Use parent_task instead of task
+        task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        return SubTask.objects.filter(parent_task=task)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context["total_task"] = Task.objects.count()
-
-        category_counts = (
-            Task.objects.values("category__name")
-            .annotate(total=Count("category"))
-            .order_by("-total")
-        )
-        if category_counts:
-            top_category = category_counts[0]
-            context["top_category_name"] = top_category["category__name"]
-            context["top_category_total"] = top_category["total"]
-        else:
-            context["top_category_name"] = None
-            context["top_category_total"] = 0
-
-        today = timezone.now().date()
-        count = Task.objects.filter(
-            created_at__year=today.year
-        ).count()
-        
-        context["task_created_this_year"] = count
-        context["total_accomplished"] = CompletedTask.objects.filter(accomplished=True).count()
-
+        context['task'] = get_object_or_404(Task, pk=self.kwargs['pk'])
         return context
+    
+class NoteListView(ListView):
+    model = Note
+    template_name = 'note_list.html'
+    context_object_name = 'notes'
+
+    def get_queryset(self):
+        # Use task instead of parent_task
+        task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        return Note.objects.filter(task=task)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task'] = get_object_or_404(Task, pk=self.kwargs['pk'])
+        return context
+
+class TaskDoneView(View):
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        data = json.loads(request.body)
+        task.status = data.get("status", task.status)
+        task.save()
+        return JsonResponse({"id": task.id, "status": task.status})

@@ -1,0 +1,51 @@
+{% load socialaccount %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hangarin Signup</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="auth-body">
+<div class="auth-card">
+    <h2>Create Account</h2>
+    <form method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        
+        <!-- Username -->
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="id_email">Email</label>
+            <input type="email" name="email" id="id_email" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="id_password1">Password</label>
+            <input type="password" name="password1" id="id_password1" required>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+            <label for="id_password2">Repeat Password</label>
+            <input type="password" name="password2" id="id_password2" required>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Or sign up with:</p>
+    <a href="{% provider_login_url 'google' %}">Google</a>
+    <a href="{% provider_login_url 'github' %}">GitHub</a>
+
+    <p>Already have an account? <a href="{% url 'account_login' %}">Login here</a></p>
+</div>
+</body>
+</html>

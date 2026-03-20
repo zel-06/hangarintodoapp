@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="note-container">
+  <h2 class="page-title">Notes for {{ task.title }}</h2>
+
+  {% if notes %}
+    <ul class="note-list">
+      {% for note in notes %}
+        <li class="note-item">
+          <div class="note-content">{{ note.content }}</div>
+          <small class="note-meta">Created: {{ note.created_at|date:"M d, Y H:i" }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-message">No notes yet.</p>
+  {% endif %}
+
+  <div class="actions">
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">← Back to Tasks</a>
+  </div>
+</div>
+{% endblock %}

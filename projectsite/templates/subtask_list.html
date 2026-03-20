@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="subtask-container">
+  <h2 class="page-title">Subtasks for {{ task.title }}</h2>
+
+  {% if subtasks %}
+    <ul class="subtask-list">
+      {% for subtask in subtasks %}
+        <li class="subtask-item">
+          <span class="subtask-title">{{ subtask.title }}</span>
+          <span class="subtask-status {{ subtask.status|lower }}">
+            {{ subtask.status }}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-message">No subtasks yet.</p>
+  {% endif %}
+
+  <div class="actions">
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">← Back to Tasks</a>
+  </div>
+</div>
+{% endblock %}

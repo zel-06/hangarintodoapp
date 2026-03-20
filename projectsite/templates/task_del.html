@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="contentdel">
+    <div class="del-container-fluid">
+        <div class="row">
+            <div class="del">
+                <div class="carddel">
+                    <div class="del-card-header">
+                        <div class="card-title">Delete Task</div>
+                        <div class="card-category">Permanently Delete This Task!</div>
+                    </div>
+
+                    <div class="del-col-md-6">
+                    <div class="del-card-body">
+                        <form class="" action="" method="post" novalidate>
+                                <p>Are you sure you want to delete "{{ object.title }}"?</p>
+                            {% csrf_token %} {% include 'includes/form.html' %}
+                                    <div class="form-group">
+                                <div class="col-md-12 col-sm-3">
+                                         <button type="submit" class="btn btn-primary btn-rounded">Submit</button>
+                                            <a href="{% url 'task-list' %}" class="btn btn-secondary btn-rounded">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+ {% endblock %}

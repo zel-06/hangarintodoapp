@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import socket, os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +41,23 @@ INSTALLED_APPS = [
 
     'tasktodomanager',
     'widget_tweaks',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+]
+
+if "pythonanywhere" in socket.gethostname():
+    SITE_ID = 2 # production site (psusphere.pythonanywhere.com)
+else:
+    SITE_ID = 3 # local site (127.0.0.1:8000)
+
+AUTHENTICATION_BACKENDS = [
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +66,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -118,8 +136,37 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (
-BASE_DIR / 'static',
-)
+# Development static files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",   # your source static folder
+]
+
+# Production collectstatic target
+STATIC_ROOT = BASE_DIR / "staticfiles"  # a different folder
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/accounts/login/'              # where @login_required will send users
+LOGIN_REDIRECT_URL = '/'                    # where to go after successful login
+LOGOUT_REDIRECT_URL = '/accounts/login/'    # after logout, go back to login
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'           # where to redirect after logout
+ACCOUNT_LOGOUT_ON_GET = True                # logout immediately on GET
+
+# Correct Allauth setting for login methods
+ACCOUNT_LOGIN_METHODS = {"username", "email"}
+
+# Signup fields (the * means required)
+ACCOUNT_SIGNUP_FIELDS = [
+    "username*",
+    "email*",
+    "password1*",
+    "password2*",
+]
+
+# Disable email verification for development
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+# Console backend prints emails to terminal instead of sending
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

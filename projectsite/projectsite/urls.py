@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, SubtaskListView, NoteListView, TaskDoneView
+from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, SubtaskListView, NoteListView, TaskDoneView, SubtaskUpdateView, SubtaskCreateView, SubtaskDeleteView, NoteCreateView, NoteUpdateView, NoteDeleteView
 
 from tasktodomanager import views
 
@@ -32,8 +32,18 @@ urlpatterns = [
     path('task_list/<pk>', TaskUpdateView.as_view(), name='task-update'),
     path('task_list/<pk>/delete', TaskDeleteView.as_view(), name='task-delete'),
 
-    #Subtask and Notes
-    path('task_list/<pk>/subtask', SubtaskListView.as_view(), name='subtask-list'),
-    path('task_list/<pk>/notes', NoteListView.as_view(), name='notes-list'),
+    #Subtask
+    path('task_list/<int:task_id>/subtask/', SubtaskListView.as_view(), name='subtask-list'),
+    path('task_list/<int:task_id>/subtask/add/', SubtaskCreateView.as_view(), name='subtask-add'),
+    path('task_list/<int:task_id>/subtask/<int:subtask_id>/edit/', SubtaskUpdateView.as_view(), name='subtask-update'),
+    path('task_list/<int:task_id>/subtask/<int:subtask_id>/delete/', SubtaskDeleteView.as_view(), name='subtask-delete'),
+
+    #Notes
+    path('task_list/<int:task_id>/notes/', NoteListView.as_view(), name='notes-list'),
+    path('task_list/<int:task_id>/notes/add/', NoteCreateView.as_view(), name='note-add'),
+    path('task_list/<int:task_id>/notes/<int:pk>/edit/', NoteUpdateView.as_view(), name='note-update'),
+    path('task_list/<int:task_id>/notes/<int:pk>/delete/', NoteDeleteView.as_view(), name='note-delete'),
+
+
     path('task_list/<pk>/done/', TaskDoneView.as_view(), name='task-done'),
 ]

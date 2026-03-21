@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div class="subtask-container">
   <h2 class="page-title">Subtasks for {{ task.title }}</h2>
+
+  <div class="subtask-actions">
+    <a href="{% url 'subtask-add' task_id=task.id %}" class="subtask-btn subtask-btn-primary">
+      + Add Subtask
+    </a>
+  </div>
 
   {% if subtasks %}
     <ul class="subtask-list">
       {% for subtask in subtasks %}
         <li class="subtask-item">
-          <span class="subtask-title">{{ subtask.title }}</span>
-          <span class="subtask-status {{ subtask.status|lower }}">
-            {{ subtask.status }}
-          </span>
-        </li>
+        <span class="subtask-title">{{ subtask.title }}</span>
+        <span class="subtask-status {{ subtask.status|lower|cut:" " }}">
+         {{ subtask.status }}
+        </span>
+          <div  class="del-edit-icon">
+                    <a href="{% url 'subtask-update' task_id=task.id subtask_id=subtask.id %}"><img src="{% static 'img/editbtn.png' %}" alt="Edit Button"></a>
+                    <a href="{% url 'subtask-delete' task_id=task.id subtask_id=subtask.id %}" class="text-danger"><img src="{% static 'img/deletebtn.png' %}" alt=""></a>
+                </div>
+          </li>
       {% endfor %}
     </ul>
   {% else %}
@@ -19,7 +30,7 @@
   {% endif %}
 
   <div class="actions">
-    <a href="{% url 'task-list' %}" class="btn btn-secondary">← Back to Tasks</a>
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">Back to Tasks</a>
   </div>
 </div>
 {% endblock %}

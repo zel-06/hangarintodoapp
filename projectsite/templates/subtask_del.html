@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="subtask-delete-container">
+    <div class="subtask-delete-card">
+        <div class="subtask-delete-header">
+            <h2 class="subtask-delete-title">Delete Subtask</h2>
+            <p class="subtask-delete-subtitle">Permanently delete this subtask!</p>
+        </div>
+
+        <div class="subtask-delete-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <p class="subtask-delete-message">
+                    Are you sure you want to delete "<strong>{{ object.title }}</strong>"?
+                </p>
+
+                <div class="subtask-delete-actions">
+                    <button type="submit" class="subtask-btn subtask-btn-danger">Delete</button>
+                    <a href="{% url 'subtask-list' task_id=object.parent_task.id %}" class="subtask-btn subtask-btn-primary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

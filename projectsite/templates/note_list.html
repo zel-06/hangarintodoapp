@@ -1,14 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <div class="note-container">
   <h2 class="page-title">Notes for {{ task.title }}</h2>
+
+<div class="actions">
+  <a href="{% url 'note-add' task_id=task.id %}" class="btn btn-secondary">+ Add Note</a>
+</div>
 
   {% if notes %}
     <ul class="note-list">
       {% for note in notes %}
         <li class="note-item">
-          <div class="note-content">{{ note.content }}</div>
-          <small class="note-meta">Created: {{ note.created_at|date:"M d, Y H:i" }}</small>
+          <div class="note-left">
+            <div class="note-content">{{ note.content }}</div>
+            <small class="note-meta">Created: {{ note.created_at|date:"M d, Y H:i" }}</small>
+          </div>
+          <div class="del-edit-icon">
+            <a href="{% url 'note-update' task_id=task.id pk=note.id %}" class=""><img src="{% static 'img/editbtn.png' %}" alt="Edit Button"></a>
+            <a href="{% url 'note-delete' task_id=task.id pk=note.id %}" class=""><img src="{% static 'img/deletebtn.png' %}" alt="Delete Button"></a>
+          </div>
         </li>
       {% endfor %}
     </ul>
@@ -17,7 +28,8 @@
   {% endif %}
 
   <div class="actions">
-    <a href="{% url 'task-list' %}" class="btn btn-secondary">← Back to Tasks</a>
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">Back to Tasks</a>
   </div>
 </div>
 {% endblock %}
+

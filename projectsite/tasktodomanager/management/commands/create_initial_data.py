@@ -44,6 +44,14 @@ class Command(BaseCommand):
                     status=random.choice(["Pending","In Progress","Completed"])
                 )
 
+        for task in Task.objects.filter(id__lte=40):
+            for i in range(random.randint(1, 3)):
+                SubTask.objects.create(
+            parent_task=task,
+            title=fake.sentence(nb_words=4),
+            status=random.choice(["Pending", "In Progress", "Completed"])
+        )
+
         # Create Notes
         for task in tasks:
             for i in range(random.randint(1,2)):
@@ -53,3 +61,14 @@ class Command(BaseCommand):
                 )
 
         self.stdout.write(self.style.SUCCESS("Fake Tasks, SubTasks, and Notes created successfully!"))
+
+        # Create Notes only for tasks without notes
+        for task in tasks:
+            if not task.note_set.exists():   # ✅ check if task has notes
+                for i in range(random.randint(1, 2)):
+                    Note.objects.create(
+                task=task,
+                content=fake.paragraph(nb_sentences=2)
+            )
+
+        self.stdout.write(self.style.SUCCESS("Fake Notes created for tasks without notes!"))

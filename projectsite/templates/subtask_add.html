@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="subtask-form-container">
+  <h2 class="subtask-form-title">Add Subtask for "{{ task.title }}"</h2>
+  <form method="post" class="subtask-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary">Save</button>
+    <a href="{% url 'subtask-list' task_id=task.id %}" class="btn btn-primary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

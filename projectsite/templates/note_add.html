@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="note-form-container">
+  <h2 class="note-form-title">Add Note for "{{ task.title }}"</h2>
+  <form method="post" class="note-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary">Save</button>
+    <a href="{% url 'notes-list' task_id=task.id %}" class="btn btn-primary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

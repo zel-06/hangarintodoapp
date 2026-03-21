@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="contentdel">
+    <div class="del-container-fluid">
+        <div class="row">
+            <div class="del">
+                <div class="carddel">
+                    <div class="del-card-header">
+                        <div class="card-title">Delete Note</div>
+                        <div class="card-category">Permanently Delete This Note!</div>
+                    </div>
+
+                    <div class="del-col-md-6">
+                        <div class="del-card-body">
+                            <form action="" method="post" novalidate>
+                                {% csrf_token %}
+                                <p>Are you sure you want to delete this note?</p>
+                                <blockquote class="note-preview">{{ object.content }}</blockquote>
+
+                                <div class="form-group">
+                                    <div class="col-md-12 col-sm-3">
+                                        <button type="submit" class="btn btn-primary btn-rounded">Delete</button>
+                                        <a href="{% url 'notes-list' task_id=object.task.id %}" class="btn btn-secondary btn-rounded">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

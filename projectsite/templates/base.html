@@ -14,22 +14,28 @@
 <body>
 
     <div class="navbar">
-        <h2>Hangarin: Task & To-Do Manager</h2>
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'task-list' %}">Dashboard</a>
-            {% if request.user.is_authenticated %}
-            <div class="dropdown">
+    <h2>Hangarin: Task & To-Do Manager</h2>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'task-list' %}">Dashboard</a>
+        {% if request.user.is_authenticated %}
+        <div class="dropdown">
             <button class="dropbtn">Settings</button>
             <div class="dropdown-content">
-            <span class="nav-user">User: {{ request.user.username }}</span>
-            <span class="nav-email">Email: {{ request.user.email }}</span>
-            <a href="{% url 'account_logout' %}">Logout</a>
-                </div>
+                <span class="nav-user">User: {{ request.user.username }}</span>
+                <span class="nav-email">Email: {{ request.user.email }}</span>
+
+                {% if request.user.is_staff or request.user.is_superuser %}
+                    <a href="{% url 'admin:login' %}">Admin Login</a>
+                {% endif %}
+
+                <a href="{% url 'account_logout' %}">Logout</a>
             </div>
-        {% endif %}
         </div>
+        {% endif %}
     </div>
+</div>
+
 
         <div class="main">
             {% block content %}

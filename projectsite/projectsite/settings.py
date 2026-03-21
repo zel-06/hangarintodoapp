@@ -139,34 +139,24 @@ USE_TZ = True
 # Development static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",   # your source static folder
+    BASE_DIR / "static",
 ]
-
-# Production collectstatic target
-STATIC_ROOT = BASE_DIR / "staticfiles"  # a different folder
+STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/accounts/login/'              # where @login_required will send users
-LOGIN_REDIRECT_URL = '/'                    # where to go after successful login
-LOGOUT_REDIRECT_URL = '/accounts/login/'    # after logout, go back to login
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'           # where to redirect after logout
-ACCOUNT_LOGOUT_ON_GET = True                # logout immediately on GET
-
-# Correct Allauth setting for login methods
+LOGIN_URL = '/accounts/login/'              
+LOGIN_REDIRECT_URL = '/'                    
+LOGOUT_REDIRECT_URL = '/accounts/login/'    
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'           
+ACCOUNT_LOGOUT_ON_GET = True               
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
-
-# Signup fields (the * means required)
 ACCOUNT_SIGNUP_FIELDS = [
     "username*",
     "email*",
     "password1*",
     "password2*",
 ]
-
-# Disable email verification for development
 ACCOUNT_EMAIL_VERIFICATION = "none"
-
-# Console backend prints emails to terminal instead of sending
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

@@ -2,9 +2,9 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #63c0e3 0%, #6248c2 100%);
-    min-height: 100vh;   /* allow body to grow beyond viewport */
-    overflow-x: hidden;  /* only hide horizontal scroll */
-    overflow-y: auto;    /* allow vertical scroll */
+    min-height: 100vh;   
+    overflow-x: hidden;  
+    overflow-y: auto;    
     background-attachment: fixed;
 }
 
@@ -16,7 +16,7 @@ body {
     align-items: center;
     height: calc(70vh - 60px);
     text-align: center;
-    min-height: 60vh; /* allow growth instead of fixed calc */
+    min-height: 60vh; 
     padding: 20px;
 }
 
@@ -219,7 +219,6 @@ body {
     width: 100%;
 }
 
-/* Remove glow/focus */
 .dropbtn:focus,
 .dropbtn:active {
     outline: none;
@@ -228,13 +227,11 @@ body {
     transform: none;
 }
 
-/* Dropdown container */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown content */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -260,7 +257,6 @@ body {
     background: rgba(255,255,255,0.25);
 }
 
-/* Show dropdown on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
@@ -269,12 +265,12 @@ body {
 
 /* FORM and TASK FORM */
 .task-container {
-    min-height: calc(100vh - 65px); /* adjust to navbar height */
+    min-height: calc(100vh - 65px); 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* keep content near top */
+    justify-content: flex-start;
     align-items: center;
-    padding: 0; /* remove extra padding */
+    padding: 0;
 }
 
 .page-title {
@@ -282,9 +278,9 @@ body {
     font-size: 2rem;
     font-weight: 700;
     color: #fff;
-    margin-top: 5px;   /* very close to navbar */
+    margin-top: 5px;  
     margin-bottom: 15px;
-    text-align: center; /* or left if you prefer */
+    text-align: center;
 }
 
 .task-card {
@@ -367,10 +363,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-size: 15px;
-    font-weight: 700;   /* makes it bolder */
+    font-weight: 700;   
     transition: all 0.5s ease;
-    text-decoration: none; /* removes underline */
-    color: black; /* ensure text is visible */
+    text-decoration: none; 
+    color: black; 
 }
 
 .btnback a:hover {
@@ -434,7 +430,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .note-item {
   display: flex;
-  justify-content: space-between; /* pushes actions to the right */
+  justify-content: space-between; 
   align-items: center;
   background: #fff;
   padding: 1rem;
@@ -444,7 +440,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 .note-left {
-  max-width: 70%; /* keeps text on the left */
+  max-width: 70%; 
 }
 
 .note-actions {
@@ -827,7 +823,6 @@ tr:hover {
     margin: 0;
 }
 
-/* Gradient themes */
 .card-warning { background: linear-gradient(135deg, #f7971e, #ffd200); }
 .card-success { background: linear-gradient(135deg, #56ab2f, #a8e063); }
 .card-danger  { background: linear-gradient(135deg, #cb2d3e, #ef473a); }
@@ -933,10 +928,10 @@ tr:hover {
     box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
     letter-spacing: 1.5px;
     font-size: 10px;
-    font-weight: 700;   /* makes it bolder */
+    font-weight: 700;   
     transition: all 0.5s ease;
-    text-decoration: none; /* removes underline */
-    color: black; /* ensure text is visible */
+    text-decoration: none; 
+    color: black; 
 }
 
 .subtaskbtn a:hover {
@@ -963,8 +958,8 @@ tr:hover {
 }
 
 .del-edit-icon img:hover {
-    transform: scale(1.2);   /* zoom in slightly */
-    opacity: 0.8;            /* fade a bit */
+    transform: scale(1.2); 
+    opacity: 0.8;         
 }
 
 
@@ -979,7 +974,6 @@ tr:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Title */
 .subtask-form-title {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -987,7 +981,6 @@ tr:hover {
   color: #333;
 }
 
-/* Form fields */
 .subtask-form p {
   margin-bottom: 1rem;
 }
@@ -1015,7 +1008,6 @@ tr:hover {
   outline: none;
 }
 
-/* Buttons */
 .subtask-btn {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -1048,7 +1040,6 @@ tr:hover {
 
 
 /* Subtask Delete */
-/* Wrapper */
 .subtask-delete-container {
     display: flex;
     justify-content: center;
@@ -1056,9 +1047,9 @@ tr:hover {
     background: transparent;
 }
 
-/* Card */
+
 .subtask-delete-card {
-    background: rgba(255, 255, 255, 0.15); /* glassmorphism */
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(12px);
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
@@ -1067,9 +1058,8 @@ tr:hover {
     text-align: center;
 }
 
-/* Header */
 .subtask-delete-header {
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* theme gradient */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     padding: 15px;
     border-radius: 10px 10px 0 0;
     color: #fff;
@@ -1086,7 +1076,6 @@ tr:hover {
     opacity: 0.9;
 }
 
-/* Body */
 .subtask-delete-body {
     padding: 20px;
     color: #333;
@@ -1097,7 +1086,6 @@ tr:hover {
     font-weight: 500;
 }
 
-/* Buttons */
 .subtask-btn {
     border-radius: 25px;
     padding: 10px 20px;
@@ -1107,9 +1095,8 @@ tr:hover {
     text-decoration: none;
 }
 
-/* Delete (Submit) button */
 .subtask-btn-danger {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* red gradient */
+    background: linear-gradient(135deg, #ff416c, #ff4b2b); 
     border: none;
     color: #fff;
 }
@@ -1118,9 +1105,8 @@ tr:hover {
     background: linear-gradient(135deg, #d32f2f, #b71c1c);
 }
 
-/* Cancel button */
 .subtask-btn-secondary {
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* theme gradient */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     border: none;
     color: #fff;
     margin-left: 10px;
@@ -1186,22 +1172,16 @@ tr:hover {
 }
 
 
-
-
-
-
-/* task delete */
-/* Wrapper */
+/* Task Delete */
 .contentdel {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: transparent; /* light neutral background */
+    background: transparent; 
 }
 
-/* Card */
 .carddel {
-    background: rgba(255, 255, 255, 0.15); /* glassmorphism */
+    background: rgba(255, 255, 255, 0.15); 
     backdrop-filter: blur(12px);
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
@@ -1210,9 +1190,8 @@ tr:hover {
     text-align: center;
 }
 
-/* Header */
 .del-card-header {
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* theme gradient */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     padding: 15px;
     border-radius: 10px 10px 0 0;
     color: #fff;
@@ -1229,7 +1208,6 @@ tr:hover {
     opacity: 0.9;
 }
 
-/* Body */
 .del-card-body {
     padding: 20px;
     color: #333;
@@ -1240,7 +1218,6 @@ tr:hover {
     font-weight: 500;
 }
 
-/* Buttons */
 .btn-rounded {
     border-radius: 25px;
     padding: 10px 20px;
@@ -1250,10 +1227,9 @@ tr:hover {
     text-decoration: none;
 }
 
-/* Delete (Submit) button */
 .btn-primary {
     margin-left: 10px;
-    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* red gradient */
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
     border: none;
     color: #fff;
 }
@@ -1262,9 +1238,8 @@ tr:hover {
     background: linear-gradient(135deg, #d32f2f, #b71c1c);
 }
 
-/* Cancel button */
 .btn-secondary {
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* theme gradient */
+    background: linear-gradient(135deg, #6a11cb, #2575fc); 
     border: none;
     color: #fff;
     margin-left: 10px;
@@ -1274,7 +1249,6 @@ tr:hover {
     background: linear-gradient(135deg, #4a0ca8, #1b5fd9);
 }
 
-/* Next BTN*/
 .mark-done {
   padding: 0.3rem 0.6rem;
   border-radius: 6px;
@@ -1303,11 +1277,6 @@ tr:hover {
 
 
 
-
-
-
-
-
 /* Fluid typography */
 .hero-section h1 {
     font-size: clamp(2rem, 6vw, 4.5rem);
@@ -1325,10 +1294,9 @@ tr:hover {
     font-size: clamp(1rem, 3vw, 1.4rem);
 }
 
-/* Responsive layout adjustments */
 @media (max-width: 992px) {
     .home-grid {
-        grid-template-columns: 1fr; /* stack cards on tablets */
+        grid-template-columns: 1fr;
     }
 
     .dashboard-row {
@@ -1387,17 +1355,17 @@ tr:hover {
 }
 
 .navbar h2 {
-    font-size: 1.4rem; /* default desktop */
+    font-size: 1.4rem;
 }
 
 @media (max-width: 768px) {
     .navbar h2 {
-        font-size: 1.2rem; /* tablets */
+        font-size: 1.2rem; 
     }
 }
 
 @media (max-width: 480px) {
     .navbar h2 {
-        font-size: 1rem; /* phones */
+        font-size: 1rem; 
     }
 }

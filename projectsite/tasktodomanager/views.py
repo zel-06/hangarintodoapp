@@ -31,12 +31,10 @@ class TaskListView(ListView):
     def get_queryset(self):
         qs = Task.objects.select_related("category", "priority")
 
-        # filter by category
         category_id = self.request.GET.get("category")
         if category_id:
             qs = qs.filter(category_id=category_id)
 
-        # filter by priority
         priority_id = self.request.GET.get("priority")
         if priority_id:
             qs = qs.filter(priority_id=priority_id)
@@ -47,7 +45,7 @@ class TaskListView(ListView):
         context = super().get_context_data(**kwargs)
 
         context["categories"] = Category.objects.all()
-        context["priorities"] = Priority.objects.all()  # assuming you have a Priority model
+        context["priorities"] = Priority.objects.all()
 
         context["total_task"] = Task.objects.exclude(status="Completed").count()
 
@@ -65,7 +63,6 @@ class TaskCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add a flag so template knows this came from home
         context['from_page'] = self.request.GET.get('from', 'home')
         return context
 
@@ -78,7 +75,6 @@ class TaskUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add a flag so template knows this came from dashboard
         context['from_page'] = 'dashboard'
         return context
 
@@ -119,7 +115,6 @@ class SubtaskCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add the parent task to the template context
         context['task'] = get_object_or_404(Task, pk=self.kwargs['task_id'])
         return context
 
@@ -162,16 +157,14 @@ class NoteListView(ListView):
 class NoteCreateView(CreateView):
     model = Note
     form_class = NoteAddForm
-    template_name = 'note_add.html'  # or 'note_form.html'
+    template_name = 'note_add.html'
 
     def form_valid(self, form):
-        # Attach the parent task before saving
         task = get_object_or_404(Task, pk=self.kwargs['task_id'])
         form.instance.task = task
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Redirect back to the notes list of the parent task
         return reverse_lazy('notes-list', kwargs={'task_id': self.kwargs['task_id']})
 
     def get_context_data(self, **kwargs):
@@ -187,32 +180,21 @@ class NoteUpdateView(UpdateView):
     context_object_name = 'note'
 
     def get_success_url(self):
-        # Redirect back to the notes list of the parent task
         return reverse_lazy('notes-list', kwargs={'task_id': self.object.task.id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Pass the parent task into the template
         context['task'] = self.object.task
         return context
 
 
 class NoteDeleteView(DeleteView):
     model = Note
-    template_name = 'note_del.html'   # make sure this matches your file
+    template_name = 'note_del.html'
     context_object_name = 'note'
 
     def get_success_url(self):
-        # ✅ redirect back to the notes list of the parent task
         return reverse_lazy('notes-list', kwargs={'task_id': self.object.task.id})
-
-
-
-
-
-
-
-
 
 class TaskDoneView(View):
     def post(self, request, pk):

@@ -6,27 +6,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hangarin Login</title>
-  <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+  <link rel="stylesheet" href="{% static 'CSS/auth.css' %}" />
 </head>
 <body>
 
 <div class="auth-wrapper">
-
-  <!-- LEFT PANEL -->
   <div class="auth-left">
     <h1>Hangarin</h1>
     <p>Master your schedule,<br>simplify your life.</p>
   </div>
-
-  <!-- RIGHT PANEL -->
   <div class="auth-card">
-
     <div class="tabs">
       <button class="tab active" onclick="switchTab('login')">Login</button>
       <button class="tab" onclick="switchTab('register')">Register</button>
     </div>
 
-    <!-- LOGIN -->
     <form id="login" class="form active" method="post" action="{% url 'account_login' %}">
   {% csrf_token %}
   <h2>Sign in</h2>
@@ -46,7 +40,6 @@
     <a href="{% url 'account_reset_password' %}">Forgot?</a>
   </div>
 
-  <!-- 🔥 SOCIAL LOGIN -->
   <div class="social-login">
     <p>Sign in with</p>
 
@@ -58,7 +51,6 @@
 
   <p class="divider">or</p>
 
-  <!-- SIGN IN BUTTON -->
   <button type="submit" class="btn">Sign in</button>
 </form>
 

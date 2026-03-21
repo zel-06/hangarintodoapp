@@ -62,9 +62,8 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Fake Tasks, SubTasks, and Notes created successfully!"))
 
-        # Create Notes only for tasks without notes
         for task in tasks:
-            if not task.note_set.exists():   # ✅ check if task has notes
+            if not task.note_set.exists():  
                 for i in range(random.randint(1, 2)):
                     Note.objects.create(
                 task=task,

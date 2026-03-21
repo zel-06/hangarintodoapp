@@ -22,7 +22,7 @@ from tasktodomanager import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("accounts/", include("allauth.urls")), # allauth routes
+    path("accounts/", include("allauth.urls")),
     
     path('', views.HomePageView.as_view(), name='home'),
 
@@ -43,7 +43,6 @@ urlpatterns = [
     path('task_list/<int:task_id>/notes/add/', NoteCreateView.as_view(), name='note-add'),
     path('task_list/<int:task_id>/notes/<int:pk>/edit/', NoteUpdateView.as_view(), name='note-update'),
     path('task_list/<int:task_id>/notes/<int:pk>/delete/', NoteDeleteView.as_view(), name='note-delete'),
-
 
     path('task_list/<pk>/done/', TaskDoneView.as_view(), name='task-done'),
 ]

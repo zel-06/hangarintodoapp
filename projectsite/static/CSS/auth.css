@@ -13,7 +13,6 @@ body {
   align-items: center;
 }
 
-/* LAYOUT */
 .auth-wrapper {
   width: 900px;
   height: 520px;
@@ -23,7 +22,6 @@ body {
   box-shadow: 0 20px 60px rgba(0,0,0,0.2);
 }
 
-/* LEFT PANEL */
 .auth-left {
   flex: 1;
   background: linear-gradient(160deg, #1e2a78, #5a4fcf);
@@ -43,7 +41,6 @@ body {
   opacity: 0.8;
 }
 
-/* RIGHT PANEL */
 .auth-card {
   flex: 1;
   background: rgba(255,255,255,0.08);
@@ -52,7 +49,6 @@ body {
   color: white;
 }
 
-/* TABS */
 .tabs {
   display: flex;
   margin-bottom: 20px;
@@ -75,7 +71,6 @@ body {
   border-bottom: 2px solid white;
 }
 
-/* FORM */
 .form {
   display: none;
 }
@@ -88,7 +83,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* INPUT */
 .input-group {
   position: relative;
   margin-bottom: 20px;
@@ -123,7 +117,6 @@ body {
   border-radius: 5px;
 }
 
-/* ROW */
 .form-row {
   display: flex;
   justify-content: space-between;
@@ -131,7 +124,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* BUTTON */
 .btn {
   width: 100%;
   padding: 12px;
@@ -219,7 +211,7 @@ body {
   right: 0;
 }
 
-/* Only affect social login confirmation page */
+/* Social Login */
 .social-login-page {
   display: flex;
   align-items: center;
@@ -271,7 +263,7 @@ body {
   box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
-/* social signup */
+/* Social Signup */
 .social-signup-page {
   display: flex;
   align-items: center;
@@ -338,8 +330,6 @@ body {
   box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
-
-/* RESPONSIVE */
 @media (max-width: 768px) {
   .auth-wrapper {
     flex-direction: column;

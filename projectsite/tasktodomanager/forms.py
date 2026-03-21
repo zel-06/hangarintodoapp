@@ -55,7 +55,7 @@ class NoteUpdateForm(forms.ModelForm):
 class NoteAddForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['content']   # only editable field
+        fields = ['content']   
         widgets = {
             'content': forms.Textarea(attrs={
                 'class': 'note-input',

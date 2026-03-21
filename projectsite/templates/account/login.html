@@ -1,0 +1,107 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hangarin Login</title>
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+</head>
+<body>
+
+<div class="auth-wrapper">
+
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <h1>Hangarin</h1>
+    <p>Master your schedule,<br>simplify your life.</p>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-card">
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login')">Login</button>
+      <button class="tab" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="login" class="form active" method="post" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  <h2>Sign in</h2>
+
+  <div class="input-group">
+    <input type="text" name="login" required>
+    <label>Email or Username</label>
+  </div>
+
+  <div class="input-group">
+    <input type="password" name="password" required>
+    <label>Password</label>
+  </div>
+
+  <div class="form-row">
+    <label><input type="checkbox"> Remember me</label>
+    <a href="{% url 'account_reset_password' %}">Forgot?</a>
+  </div>
+
+  <!-- 🔥 SOCIAL LOGIN -->
+  <div class="social-login">
+    <p>Sign in with</p>
+
+    <div class="social-buttons">
+      <a href="{% provider_login_url 'google' %}" class="social-btn google">Google</a>
+      <a href="{% provider_login_url 'github' %}" class="social-btn github">GitHub</a>
+    </div>
+  </div>
+
+  <p class="divider">or</p>
+
+  <!-- SIGN IN BUTTON -->
+  <button type="submit" class="btn">Sign in</button>
+</form>
+
+    <!-- REGISTER -->
+    <form id="register" class="form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      <h2>Create account</h2>
+
+      <div class="input-group">
+        <input type="text" name="username" required>
+        <label>Username</label>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" required>
+        <label>Email</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password1" required>
+        <label>Password</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password2" required>
+        <label>Repeat Password</label>
+      </div>
+
+      <button type="submit" class="btn">Register</button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+  document.getElementById(tab).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

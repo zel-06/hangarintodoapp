@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hangarin Social Signup</title>
+  <link rel="stylesheet" href="{% static 'CSS/auth.css' %}">
+</head>
+<body class="social-signup-page">
+  <div class="social-signup-card">
+    <h2>Sign Up</h2>
+    <p>You are about to use your {{ provider.name }} account to log in.  
+       As a final step, please complete the following form:</p>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</body>
+</html>

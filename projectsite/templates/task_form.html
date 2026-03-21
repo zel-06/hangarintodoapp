@@ -4,7 +4,11 @@
 {% block content %}
 
 <div class="btnback">
-<a href="{% url 'task-list' %}" class="btn">Back</a>
+    {% if from_page == 'home' %}
+        <a href="{% url 'home' %}" class="btn">Back</a>
+    {% else %}
+        <a href="{% url 'task-list' %}" class="btn">Back</a>
+    {% endif %}
 </div>
 
 <div class="task-container">

@@ -63,11 +63,24 @@ class TaskCreateView(CreateView):
     template_name = 'task_form.html'
     success_url = reverse_lazy('task-list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add a flag so template knows this came from home
+        context['from_page'] = self.request.GET.get('from', 'home')
+        return context
+
+
 class TaskUpdateView(UpdateView):
     model = Task
     form_class = TaskUpdateForm
     template_name = 'task_form.html'
     success_url = reverse_lazy('task-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add a flag so template knows this came from dashboard
+        context['from_page'] = 'dashboard'
+        return context
 
 
 class TaskDeleteView(DeleteView):

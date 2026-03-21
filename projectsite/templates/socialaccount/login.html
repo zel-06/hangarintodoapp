@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hangarin Social Login</title>
+  <link rel="stylesheet" href="{% static 'CSS/auth.css' %}">
+</head>
+<body class="social-login-page">
+  <div class="social-auth-card">
+    <h2>Sign in via {{ provider.name }}</h2>
+    <p>You are about to sign in using your {{ provider.name }} account.</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -160,3 +160,5 @@ ACCOUNT_SIGNUP_FIELDS = [
 ]
 ACCOUNT_EMAIL_VERIFICATION = "none"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+

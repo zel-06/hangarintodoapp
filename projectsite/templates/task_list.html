@@ -53,11 +53,9 @@
 </div>
    
 
-
 <div class="col-md-12">
     <form method="get" class="filter-row">
         
-        <!-- Category -->
         <div>
             <label for="categorySelect">Category</label>
             <select id="categorySelect" name="category">
@@ -70,7 +68,6 @@
             </select>
         </div>
 
-        <!-- Priority -->
         <div>
             <label for="prioritySelect">Priority</label>
             <select id="prioritySelect" name="priority">
@@ -83,11 +80,11 @@
             </select>
         </div>
 
-        <!-- Filter Button -->
         <button type="submit">Filter</button>
     </form>
 </div>
 
+<div class="table-responsive">
 <table>
     <thead>
         <tr>
@@ -118,7 +115,15 @@
                     <a href="{% url 'notes-list' object.id %}">Notes</a>
                     </div>
                 </td>
-            <td style="max-width: 300px;">{{ object.description }}</td>
+            
+            <td>
+                <div class="description-content" id="desc-{{ object.id }}">
+                    {{ object.description }}
+                </div>
+                {% if object.description %}
+                    <button class="see-more-btn" onclick="toggleText(this, 'desc-{{ object.id }}')">See More</button>
+                {% endif %}
+            </td>
             <td><strong>{{ object.status }}</strong></td>
             <td>{{ object.deadline|date:"M d, Y" }}</td>
             <td class="priority-{{ task.priority|lower }}">{{ object.priority }}</td>
@@ -133,6 +138,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 <div class="pagination">
   {% if page_obj.has_previous %}
@@ -149,6 +155,22 @@
 </div>
 
 <script>
+// THIS IS THE NEW SEE MORE SCRIPT
+function toggleText(btn, descId) {
+    var content = document.getElementById(descId);
+    
+    // Toggle the 'expanded' class on the text
+    content.classList.toggle("expanded");
+    
+    // Change the button text
+    if (content.classList.contains("expanded")) {
+        btn.innerHTML = "See Less";
+    } else {
+        btn.innerHTML = "See More";
+    }
+}
+
+// YOUR EXISTING CHECKBOX SCRIPT
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll(".task-done-checkbox").forEach(function(checkbox) {
     checkbox.addEventListener("change", function() {
@@ -174,7 +196,5 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script>
-
-
 
 {% endblock %}

@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from tasktodomanager.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, SubtaskListView, NoteListView, TaskDoneView, SubtaskUpdateView, SubtaskCreateView, SubtaskDeleteView, NoteCreateView, NoteUpdateView, NoteDeleteView
-
 from tasktodomanager import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('pwa.urls')),
     path("accounts/", include("allauth.urls")),
     
     path('', views.HomePageView.as_view(), name='home'),

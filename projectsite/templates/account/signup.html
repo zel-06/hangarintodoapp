@@ -1,11 +1,13 @@
 {% load socialaccount %}
 {% load static %}
+{% load pwa %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Hangarin Signup</title>
     <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    {% progressive_web_app_meta %}
 </head>
 <body class="auth-body">
 <div class="auth-card">
